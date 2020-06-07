@@ -9,7 +9,6 @@ class Beacon extends Model
     public $incrementing = false;
     protected $primaryKey = "beacon_uuid";
 
-
     public function location()
     {
         return $this->belongsTo("App\models\Location", 'location_id', 'location_id');

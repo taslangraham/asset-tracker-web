@@ -10,11 +10,11 @@ class Status extends Model
 
     public function beacons()
     {
-        return $this->hasMany("App\modesl\Beacon", "status_id", "status_id");
+        return $this->hasMany("App\models\Beacon", "status_id", "status_id");
     }
 
     public function assets()
     {
-        return $this->hasMany("App\modesl\Asset", "status_id", "status_id");
+        return $this->hasMany("App\models\Asset", "status_id", "status_id");
     }
 }
