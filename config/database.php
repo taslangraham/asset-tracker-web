@@ -45,7 +45,7 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL', 'www.db4free.net'),
+            // 'url' => env('DATABASE_URL', 'utechassettrack'),
             'host' => env('DB_HOST', 'db4free.net'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'utechassettrack'),
