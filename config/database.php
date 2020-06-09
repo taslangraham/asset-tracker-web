@@ -46,7 +46,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             // 'url' => env('DATABASE_URL', 'utechassettrack'),
-            'host' => env('DB_HOST', 'db4free.net'),
+            'host' =>  $_ENV['DB_HOST'],
             'port' => env('DB_PORT', '3306'),
             'database' => $_ENV['DB_DATABASE'],
             'username' => $_ENV['DB_USERNAME'],
