@@ -27,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         if (config('app.env') === 'production') {
-            $url->forceSchema('https');
+
+            \URL::forceScheme('https');
         }
     }
 }
