@@ -22,3 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get("/locations", function () {
     return new LocationResource(Location::all());
 });
+
+
+Route::put("/beacon", 'BeaconController@update');

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\models\Beacon;
+use Exception;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class BeaconController extends Controller
 {
@@ -66,9 +69,22 @@ class BeaconController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        try {
+            foreach ($request->beacons as $beacon) {
+                $beaconToUpdate = Beacon::find($beacon['beacon_uuid']);
+                if ($beaconToUpdate) {
+                    $beaconToUpdate->location_id = $beacon['location_id'];
+                    $beaconToUpdate->save();
+                }
+            }
+
+            return response()->json(["msg" => "Locations succesfully updated"]);
+        } catch (Exception $e) {
+            return response()->json(["msg" => "Something went wrong"], 500);
+        }
     }
 
     /**
