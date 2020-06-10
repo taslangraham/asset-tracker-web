@@ -45,7 +45,7 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL', 'utechassettrack'),
+            // 'url' => env('DATABASE_URL', ''),
             'host' =>  $_ENV['DB_HOST'],
             'port' => env('DB_PORT', '3306'),
             'database' => $_ENV['DB_DATABASE'],
