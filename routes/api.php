@@ -24,4 +24,4 @@ Route::get("/locations", function () {
 });
 
 
-Route::put("/beacon", 'BeaconController@update');
+Route::put("/beacon/update", 'BeaconController@update');
