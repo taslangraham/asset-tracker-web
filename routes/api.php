@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\Location as LocationResource;
+use App\Http\Resources\Beacon as BeaconResource;
+use App\models\Beacon;
 use App\models\Location;
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +26,9 @@ Route::get("/locations", function () {
 });
 
 
-Route::put("/beacon/update", 'BeaconController@update');
+Route::get("/beacon", function () {
+    return BeaconResource::collection((Beacon::all()));
+});
+
+
+Route::put("/beacon/update/{beaconspo}", 'BeaconController@update');

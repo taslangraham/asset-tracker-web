@@ -71,7 +71,7 @@ class BeaconController extends Controller
      */
     public function update(Request $request)
     {
-
+        dd($request);
         try {
             foreach ($request->beacons as $beacon) {
                 $beaconToUpdate = Beacon::find($beacon['beacon_uuid']);
@@ -83,6 +83,7 @@ class BeaconController extends Controller
 
             return response()->json(["msg" => "Locations succesfully updated"]);
         } catch (Exception $e) {
+            dd($e);
             return response()->json(["msg" => "Something went wrong"], 500);
         }
     }
