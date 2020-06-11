@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get("/locations", function () {
-    return new LocationResource(Location::all());
+    return LocationResource::collection((Location::all()));
 });
 
 
