@@ -30,5 +30,10 @@ Route::get("/beacon", function () {
     return BeaconResource::collection((Beacon::all()));
 });
 
+Route::post("/beacon", function (Request $request) {
+    // dd($request->id);
+    return Beacon::create($request->all());
+});
 
-Route::put("/beacon/update/{beaconspo}", 'BeaconController@update');
+
+Route::put("/beacon/update/", 'BeaconController@update');

@@ -71,7 +71,7 @@ class BeaconController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request);
+
         try {
             foreach ($request->beacons as $beacon) {
                 $beaconToUpdate = Beacon::find($beacon['beacon_uuid']);

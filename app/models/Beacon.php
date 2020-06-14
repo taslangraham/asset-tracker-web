@@ -8,7 +8,7 @@ class Beacon extends Model
 {
     public $incrementing = false;
     protected $primaryKey = "beacon_uuid";
-
+    protected $fillable = ["beacon_uuid", "name", "location_id", "manufacturer_id", "status_id"];
     public function location()
     {
         return $this->belongsTo("App\models\Location", 'location_id', 'location_id');
