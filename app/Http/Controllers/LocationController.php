@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\models\Location;
+use Illuminate\Contracts\Session\Session;
 
 class LocationController extends Controller
 {
@@ -13,7 +15,9 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.location.index', with([
+            'locations' => Location::all()
+        ]));
     }
 
     /**
@@ -23,7 +27,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.location.create');
     }
 
     /**
@@ -34,7 +38,16 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:locations,name'
+        ]);
+
+        Location::create([
+            'name' => $request->name
+        ]);
+
+        Session()->flash('success', 'Location Successully Added');
+        return redirect()->route('locations.index');
     }
 
     /**
@@ -79,6 +92,9 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $location = Location::find($id);
+        $location->delete();
+        Session()->flash('success', 'Location Deleted Added');
+        return redirect()->route('locations.index');
     }
 }

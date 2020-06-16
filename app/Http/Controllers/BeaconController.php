@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\models\Beacon;
 use Exception;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
+use App\models\Manufacturer;
+use App\models\Location;
+use App\models\Status;
 
 class BeaconController extends Controller
 {
@@ -16,7 +20,10 @@ class BeaconController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('admin.beacon.index', with([
+            'beacons' => Beacon::with('manufacturer')->get()
+        ]));
     }
 
     /**
@@ -26,7 +33,20 @@ class BeaconController extends Controller
      */
     public function create()
     {
-        //
+
+        $manufacturers = Manufacturer::all();
+        $locations = Location::all();
+        $statuses = Status::all();
+        if ($manufacturers->isEmpty() || $locations->isEmpty() || $statuses->isEmpty()) {
+            Session()->flash('error', "Please ensure you have a Manufaturer, Location, and Status before addin a beacon");
+            return redirect()->route('beacons.index');
+        }
+
+        return view('admin.beacon.create', with([
+            'locations' => $locations,
+            'manufacturers' => $manufacturers,
+            'statuses' => $statuses
+        ]));
     }
 
     /**
@@ -37,7 +57,24 @@ class BeaconController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:beacons,name',
+            'beacon_uuid' => 'required|unique:beacons,beacon_uuid',
+            'location' => 'required',
+            'status' => 'required',
+            'manufacturer' => 'required'
+        ]);
+
+        Beacon::create([
+            'beacon_uuid' => $request->beacon_uuid,
+            'name' => $request->name,
+            'location_id' => $request->location,
+            'status_id' => $request->status,
+            'manufacturer_id' => $request->manufacturer
+        ]);
+
+        Session()->flash('success', 'Beacon Added Successfully');
+        return redirect()->route('beacons.index');
     }
 
     /**
@@ -96,6 +133,9 @@ class BeaconController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $beacon = Beacon::find($id);
+        $beacon->delete();
+        Session()->flash('success', "Beacon Succesfully Deleted");
+        return redirect()->route('beacons.index');
     }
 }

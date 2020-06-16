@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\models\Manufacturer;
+use App\models\Manufaturer;
+use Illuminate\Contracts\Session\Session;
 
 class ManufacturerController extends Controller
 {
@@ -13,7 +16,9 @@ class ManufacturerController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.manufacturer.index', with([
+            'manufacturers' => Manufacturer::all()
+        ]));
     }
 
     /**
@@ -23,7 +28,7 @@ class ManufacturerController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.manufacturer.create');
     }
 
     /**
@@ -34,7 +39,16 @@ class ManufacturerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:manufacturers,name'
+        ]);
+
+        Manufacturer::create([
+            "name" => $request->name
+        ]);
+
+        $request->session()->flash('success', "Manufacturer Added Succesfully");
+        return redirect()->route('manufacturer.index');
     }
 
     /**
@@ -79,6 +93,10 @@ class ManufacturerController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $manufacturer = Manufacturer::find($id);
+        $manufacturer->delete();
+        session()->flash('success', "Manufacturer Added Succesfully");
+        return redirect()->route('manufacturers.index');
     }
 }

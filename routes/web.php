@@ -23,6 +23,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('vendors', 'VendorController');
+Route::resource('manufacturers', 'ManufacturerController');
+Route::resource('beacons', 'BeaconController');
+Route::resource('locations', 'LocationController');

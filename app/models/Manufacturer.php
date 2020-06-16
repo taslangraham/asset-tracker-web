@@ -8,7 +8,7 @@ class Manufacturer extends Model
 {
 
     protected $primaryKey = "manufacturer_id";
-
+    protected $fillable = ["name"];
     public function beacon()
     {
         return $this->hasMany("App\models\Beacon");

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\models\Vendor;
+use Illuminate\Contracts\Session\Session;
 
 class VendorController extends Controller
 {
@@ -13,7 +15,9 @@ class VendorController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.vendor.index', with([
+            'vendors' => Vendor::all()
+        ]));
     }
 
     /**
@@ -23,7 +27,7 @@ class VendorController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.vendor.add");
     }
 
     /**
@@ -34,7 +38,10 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required|unique:vendors|max:255']);
+        Vendor::create(['name' => $request->name]);
+        $request->session()->flash('success', 'Vendor Added Successfully');
+        return redirect()->route('vendors.index');
     }
 
     /**
@@ -79,6 +86,9 @@ class VendorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vendor = Vendor::find($id);
+        $vendor->delete();
+        session()->flash('success', 'Vendor Deleted Succesfully');
+        return redirect()->route('vendors.index');
     }
 }

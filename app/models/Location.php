@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     protected $primaryKey = "location_id";
-
+    protected $fillable = ['name'];
     public function beacons()
     {
         return $this->hasMany('App\models\Beacon', 'location_id', 'location_id');

@@ -12,7 +12,7 @@ class StatusSeeder extends Seeder
      */
     public function run()
     {
-        $statuses = ["Inactive", "Missing", "Active", "Limited Use"];
+        $statuses = ["At Assigned Location", "Missing", "Not At Assigned Location"];
 
         foreach ($statuses as $status) {
             $stat = new Status();
