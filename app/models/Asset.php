@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Asset extends Model
 {
     protected $primaryKey = "asset_id";
-
+    protected $fillable = [
+        "assigned_location",
+        "status_id", "condition_id", "size_id",
+        "beacon_uuid", "name", "description", "value",
+        "date_purchased", "date_last_checked",
+        "manufacturer_id", "vendor_id", "category_id", "category_id"
+    ];
     public function manufacturer()
     {
         return $this->belongsTo("App\models\Manufacturer", "manufacturer_id", "manufacturer_id");

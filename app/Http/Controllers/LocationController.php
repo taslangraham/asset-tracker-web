@@ -94,7 +94,7 @@ class LocationController extends Controller
     {
         $location = Location::find($id);
         $location->delete();
-        Session()->flash('success', 'Location Deleted Added');
+        Session()->flash('success', 'Location Deleted Succesfully');
         return redirect()->route('locations.index');
     }
 }

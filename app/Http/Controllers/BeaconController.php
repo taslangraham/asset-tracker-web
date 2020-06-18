@@ -120,7 +120,6 @@ class BeaconController extends Controller
 
             return response()->json(["msg" => "Locations succesfully updated"]);
         } catch (Exception $e) {
-            dd($e);
             return response()->json(["msg" => "Something went wrong"], 500);
         }
     }

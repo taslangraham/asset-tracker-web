@@ -17,6 +17,11 @@ class CreateLocationsTable extends Migration
             $table->id("location_id");
             $table->string("name");
             $table->timestamps();
+
+
+            // ->onDelete('restrict');
+            // add this to all parent table schema
+
         });
     }
 

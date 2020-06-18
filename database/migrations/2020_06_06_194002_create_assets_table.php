@@ -24,7 +24,7 @@ class CreateAssetsTable extends Migration
             $table->foreignId("size_id");
             $table->foreignId("condition_id");
             $table->foreignId("assigned_location");
-            $table->foreignId("current_location");
+            // $table->foreignId("current_location");
             $table->uuid("beacon_uuid");
 
             //attributes
@@ -43,7 +43,7 @@ class CreateAssetsTable extends Migration
             $table->foreign('size_id')->references('size_id')->on('sizes');
             $table->foreign('condition_id')->references('condition_id')->on('conditions');
             $table->foreign('assigned_location')->references('location_id')->on('locations');
-            $table->foreign('current_location')->references('location_id')->on('locations');
+            // $table->foreign('current_location')->references('location_id')->on('locations');
             $table->foreign('beacon_uuid')->references('beacon_uuid')->on('beacons');
 
             $table->timestamps();

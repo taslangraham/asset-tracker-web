@@ -26,13 +26,12 @@
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{asset('css/toastr.css')}}">
     @yield('css')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed text-sm">
     <div class="wrapper">
-
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
@@ -182,8 +181,8 @@
                         data-accordion="false">
 
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link {{Request::path() ==='assets'?'active':''}}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <a href="#" class="nav-link {{Request::path() ==='admin/assets'?'active':''}}"> <i
+                                    class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Assets
                                     <i class="right fas fa-angle-left"></i>
@@ -191,14 +190,14 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link">
+                                    <a href="{{route('assets.index')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Add New</p>
+                                        <p>View All</p>
                                     </a>
 
-                                    <a href="./index.html" class="nav-link">
+                                    <a href="{{route('assets.create')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Reports</p>
+                                        <p>Add new</p>
                                     </a>
                                 </li>
 
@@ -206,7 +205,7 @@
                             </ul>
                         </li>
                         <li class="nav-item has-treeview ">
-                            <a href="#" class="nav-link {{Request::path() ==='beacons'?'active':''}}">
+                            <a href="#" class="nav-link {{Request::path() ==='admin/beacons'?'active':''}}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Beacons
@@ -231,7 +230,7 @@
                         </li>
 
                         <li class="nav-item has-treeview ">
-                            <a href="#" class="nav-link {{Request::path() ==='manufacturers'?'active':''}}">
+                            <a href="#" class="nav-link {{Request::path() ==='admin/manufacturers'?'active':''}}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Manufacturers
@@ -256,7 +255,7 @@
                         </li>
 
                         <li class="nav-item has-treeview ">
-                            <a href="#" class="nav-link {{Request::path() ==='vendors'?'active':''}}">
+                            <a href="#" class="nav-link {{Request::path() ==='admin/vendors'?'active':''}}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Vendors
@@ -280,7 +279,7 @@
                             </ul>
                         </li>
                         <li class="nav-item has-treeview ">
-                            <a href="#" class="nav-link {{Request::path() ==='locations'?'active':''}}">
+                            <a href="#" class="nav-link {{Request::path() ==='admin/locations'?'active':''}}">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Locations
@@ -295,6 +294,30 @@
                                     </a>
 
                                     <a href="{{route('locations.create')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add New </p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview ">
+                            <a href="#" class="nav-link {{Request::path() ==='admin/statuses'?'active':''}}">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Statuses
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('statuses.index')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>View All</p>
+                                    </a>
+
+                                    <a href="{{route('statuses.create')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add New </p>
                                     </a>
@@ -362,14 +385,26 @@
     </div>
     <!-- ./wrapper -->
 
+
     <!-- jQuery -->
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="asset{{'plugins/jquery-ui/jquery-ui.min.js'}}"></script>
+    <script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     {{-- <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script> --}}
+
+    <script src="{{asset('js/toastr.js')}}"></script>
+    <script>
+        @if(Session::has('success'))
+            toastr.success("{{Session::get('success')}}")
+        @endif
+
+        @if(Session::has('error'))
+            toastr.error("{{Session::get('error')}}")
+        @endif
+    </script>
     <!-- Bootstrap 4 -->
     <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
@@ -386,11 +421,14 @@
     <!-- AdminLTE App -->
     <script src="{{asset('dist/js/adminlte.js')}}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
+    {{-- <script src="{{asset('dist/js/pages/dashboard.js')}}"></script> --}}
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}"></script>
 
     @yield('scripts')
+
+
+
 </body>
 
 </html>

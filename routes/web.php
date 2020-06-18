@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\models\Beacon;
 use App\models\Location;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +25,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('vendors', 'VendorController');
-Route::resource('manufacturers', 'ManufacturerController');
-Route::resource('beacons', 'BeaconController');
-Route::resource('locations', 'LocationController');
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
+    Route::resource('vendors', 'VendorController');
+    Route::resource('manufacturers', 'ManufacturerController');
+    Route::resource('beacons', 'BeaconController');
+    Route::resource('locations', 'LocationController');
+    Route::resource('statuses', 'StatusController');
+    Route::resource('assets', 'AssetController');
+});

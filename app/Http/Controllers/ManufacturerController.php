@@ -48,7 +48,7 @@ class ManufacturerController extends Controller
         ]);
 
         $request->session()->flash('success', "Manufacturer Added Succesfully");
-        return redirect()->route('manufacturer.index');
+        return redirect()->route('manufacturers.index');
     }
 
     /**
@@ -96,7 +96,7 @@ class ManufacturerController extends Controller
 
         $manufacturer = Manufacturer::find($id);
         $manufacturer->delete();
-        session()->flash('success', "Manufacturer Added Succesfully");
+        session()->flash('success', "Manufacturer Deleted Succesfully");
         return redirect()->route('manufacturers.index');
     }
 }

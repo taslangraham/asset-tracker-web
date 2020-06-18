@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\models\Status;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class StatusController extends Controller
 {
@@ -13,7 +15,9 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.status.index', with([
+            'statuses' => Status::all()
+        ]));
     }
 
     /**
